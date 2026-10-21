@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Админ-панель — StyleShop</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .admin-table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.9rem; }
+    .admin-table th, .admin-table td { padding: 10px; border: 1px solid #e5e7eb; text-align: left; }
+    .admin-table th { background: #f3f4f6; }
+    .badge { padding: 2px 8px; border-radius: 10px; font-size: 0.8rem; background: #e5e7eb; }
+    .badge.admin { background: #fbbf24; }
+    .badge.login { background: #60a5fa; color: white; }
+    .badge.add_to_cart { background: #34d399; color: white; }
+    .admin-table select { padding: 4px; border-radius: 4px; border: 1px solid #ccc; }
+    .btn-del { background: #ef4444; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+    .btn-del:hover { background: #dc2626; }
+    .btn-edit { background: #f59e0b; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+    .btn-edit:hover { background: #d97706; }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="header__logo logo">StyleShop</a>
+      <h2>Админ-панель</h2>
+    </div>
+  </header>
+
+  <main class="main container" style="padding: 2rem 1rem;">
+    <div id="error" style="color: red; display: none;"></div>
+
+    <section id="admin-content" style="display: none;">
+      <h2>Пользователи</h2>
+      <table class="admin-table" id="users-table">
+        <thead><tr><th>Имя</th><th>Email</th><th>Роль</th><th>Дата</th><th>Действия</th></tr></thead>
+        <tbody></tbody>
+      </table>
+
+      <div class="form" style="margin-top: 2rem; margin-bottom: 1rem;">
+        <h3>Добавить новый товар</h3>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <input type="text" id="new-prod-name" placeholder="Название" class="form__input" style="max-width: 200px;">
+          <input type="number" id="new-prod-price" placeholder="Цена" class="form__input" style="max-width: 100px;">
+          <input type="number" id="new-prod-old-price" placeholder="Старая цена (для скидки)" class="form__input" style="max-width: 150px;">
+          <input type="text" id="new-prod-desc" placeholder="Краткое описание" class="form__input" style="max-width: 200px;">
+          <input type="text" id="new-prod-img" placeholder="Ссылка на картинку" class="form__input" style="max-width: 200px;">
+          
+          <select id="new-prod-category" class="form__input" style="max-width: 150px;">
+            <option value="Футболки">Футболки</option>
+            <option value="Джинсы">Джинсы</option>
+            <option value="Куртки">Куртки</option>
+            <option value="Разное">Разное</option>
+          </select>
+          
+          <button onclick="addNewProduct()" class="button button_theme_primary">Добавить</button>
+        </div>
+      </div>
+
+      <h2 style="margin-top: 2rem;">Управление товарами</h2>
+      
+            <!-- Кнопки сортировки -->
+      <div style="margin: 10px 0; display: flex; gap: 10px; flex-wrap: wrap;">
+        <button onclick="sortProducts('default')" class="button button_theme_secondary" style="padding: 5px 10px; font-size: 0.8rem;">По умолчанию</button>
+        <button onclick="sortProducts('name')" class="button button_theme_secondary" style="padding: 5px 10px; font-size: 0.8rem;">По названию (А-Я)</button>
+        <button onclick="sortProducts('price')" class="button button_theme_secondary" style="padding: 5px 10px; font-size: 0.8rem;">По цене (дешевле)</button>
+        <button onclick="sortProducts('price-desc')" class="button button_theme_secondary" style="padding: 5px 10px; font-size: 0.8rem;">По цене (дороже)</button>
+      </div>
+
+      <table class="admin-table" id="products-table">
+        <thead><tr><th>Название</th><th>Категория</th><th>Цена</th><th>Действия</th></tr></thead>
+        <tbody></tbody>
+      </table>
+
+      <h2 style="margin-top: 2rem;">Модерация отзывов</h2>
+      <table class="admin-table" id="feedbacks-table">
+        <thead><tr><th>Пользователь</th><th>Тема</th><th>Сообщение</th><th>Статус</th></tr></thead>
+        <tbody></tbody>
+      </table>
+
+      <h2 style="margin-top: 2rem;">Заказы пользователей</h2>
+      <table class="admin-table" id="orders-table">
+        <thead>
+          <tr>
+            <th>Покупатель</th>
+            <th>Товары</th>
+            <th>Сумма</th>
+            <th>Дата</th>
+            <th>Статус</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <h2 style="margin-top: 2rem;">Журнал действий (последние 100)</h2>
+      <table class="admin-table" id="actions-table">
+        <thead><tr><th>Пользователь</th><th>Действие</th><th>Детали</th><th>Время</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script>
+    let allProducts = []; // Переменная для хранения товаров перед сортировкой
+
+    async function loadAdminData() {
+      const res = await fetch("/api/admin/users", { credentials: "include" });
+      if (!res.ok) {
+        document.getElementById("error").style.display = "block";
+        document.getElementById("error").innerText = "Доступ запрещен. Убедитесь, что вы админ (измените роль в Compass).";
+        return;
+      }
+
+      document.getElementById("admin-content").style.display = "block";
+      
+      // 1. Пользователи
+      const usersData = await res.json();
+      document.querySelector("#users-table tbody").innerHTML = usersData.users.map(u => `
+        <tr>
+          <td>${u.name}</td>
+          <td>${u.email}</td>
+          <td>
+            <select onchange="updateUserRole('${u._id}', this.value)">
+              <option value="user" ${u.role === 'user' ? 'selected' : ''}>user</option>
+              <option value="admin" ${u.role === 'admin' ? 'selected' : ''}>admin</option>
+            </select>
+          </td>
+          <td>${new Date(u.created_at).toLocaleDateString()}</td>
+          <td>
+            <button class="btn-del" onclick="deleteUser('${u._id}')">Удалить</button>
+          </td>
+        </tr>
+      `).join("");
+
+      // 2. Журнал действий
+      const actionsRes = await fetch("/api/admin/actions", { credentials: "include" });
+      const actionsData = await actionsRes.json();
+      document.querySelector("#actions-table tbody").innerHTML = actionsData.actions.map(a => `
+        <tr>
+          <td>${a.user_id ? a.user_id.name : "Удаленный"}</td>
+          <td><span class="badge ${a.action}">${a.action}</span></td>
+          <td>${a.details || "-"}</td>
+          <td>${new Date(a.created_at).toLocaleString()}</td>
+        </tr>
+      `).join("");
+
+      // 3. Товары
+      const prodRes = await fetch("/api/admin/products", { credentials: "include" });
+      const prodData = await prodRes.json();
+      allProducts = prodData.products; // Сохраняем в переменную
+      renderProductsTable(allProducts); // Вызываем функцию отрисовки
+
+      // 4. Отзывы
+      const fbRes = await fetch("/api/admin/feedbacks", { credentials: "include" });
+      const fbData = await fbRes.json();
+      document.querySelector("#feedbacks-table tbody").innerHTML = fbData.feedbacks.map(f => `
+        <tr>
+          <td>${f.user_id ? f.user_id.name : "Удален"}</td>
+          <td>${f.subject}</td>
+          <td>${f.message.substring(0, 50)}...</td>
+          <td>
+            <select onchange="updateFeedbackStatus('${f._id}', this.value)">
+              <option value="new" ${f.status === 'new' ? 'selected' : ''}>Новый</option>
+              <option value="in_progress" ${f.status === 'in_progress' ? 'selected' : ''}>В работе</option>
+              <option value="resolved" ${f.status === 'resolved' ? 'selected' : ''}>Решено</option>
+            </select>
+          </td>
+        </tr>
+      `).join("");
+
+      // 5. Заказы
+      const ordersRes = await fetch("/api/admin/orders", { credentials: "include" });
+      const ordersData = await ordersRes.json();
+      document.querySelector("#orders-table tbody").innerHTML = ordersData.orders.map(o => `
+        <tr>
+          <td>
+            <strong>${o.user_id ? o.user_id.name : "Удален"}</strong><br>
+            <span style="font-size: 0.8rem; color: #6b7280;">${o.user_id ? o.user_id.email : ""}</span>
+          </td>
+          <td>
+            <ul style="margin: 0; padding-left: 1rem; font-size: 0.85rem;">
+              ${o.items.map(i => `<li>${i.name} × ${i.quantity}</li>`).join("")}
+            </ul>
+          </td>
+          <td>${o.total} ₽</td>
+          <td>${new Date(o.created_at).toLocaleString()}</td>
+          <td>
+            <select onchange="updateOrderStatus('${o._id}', this.value)" style="padding: 4px; border-radius: 4px;">
+              <option value="В обработке" ${o.status === 'В обработке' ? 'selected' : ''}>В обработке</option>
+              <option value="Отправлен" ${o.status === 'Отправлен' ? 'selected' : ''}>Отправлен</option>
+              <option value="Доставлен" ${o.status === 'Доставлен' ? 'selected' : ''}>Доставлен</option>
+            </select>
+          </td>
+        </tr>
+      `).join("");
+    }
+
+    // Функция отрисовки таблицы товаров
+    function renderProductsTable(products) {
+      document.querySelector("#products-table tbody").innerHTML = products.map(p => `
+        <tr>
+          <td>${p.name}</td>
+          <td>${p.category || "Разное"}</td>
+          <td>${p.price} ₽</td>
+          <td style="display: flex; gap: 5px;">
+            <button class="btn-edit" onclick="editProduct('${p._id}', '${p.name.replace(/'/g, "\\'")}', '${p.price}', '${p.old_price || ''}', '${p.image ? p.image.replace(/'/g, "\\'") : ''}', '${p.category || 'Разное'}')">Изм.</button>
+            <button class="btn-del" onclick="deleteProduct('${p._id}')">Удалить</button>
+          </td>
+        </tr>
+      `).join("");
+    }
+
+    // Функция сортировки
+        function sortProducts(by) {
+      if (by === 'default') {
+        renderProductsTable(allProducts);
+        return;
+      }
+      const sorted = [...allProducts].sort((a, b) => {
+        if (by === 'price') return a.price - b.price; // дешевле
+        if (by === 'price-desc') return b.price - a.price; // дороже (НОВАЯ СТРОКА)
+        if (by === 'name') return a.name.localeCompare(b.name);
+      });
+      renderProductsTable(sorted);
+    }
+
+    // Добавление товара
+    async function addNewProduct() {
+      const name = document.getElementById("new-prod-name").value;
+      const price = document.getElementById("new-prod-price").value;
+      const old_price = document.getElementById("new-prod-old-price").value;
+      const description = document.getElementById("new-prod-desc").value;
+      const image = document.getElementById("new-prod-img").value;
+      const category = document.getElementById("new-prod-category").value;
+
+      if (!name || !price) {
+        alert("Заполните хотя бы название и цену!");
+        return;
+      }
+
+      const res = await fetch("/api/admin/products", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ name, price, old_price, description, image, category })
+      });
+      
+      const data = await res.json();
+      if (data.success) {
+        alert("✅ Товар добавлен!");
+        document.getElementById("new-prod-name").value = "";
+        document.getElementById("new-prod-price").value = "";
+        document.getElementById("new-prod-old-price").value = "";
+        document.getElementById("new-prod-desc").value = "";
+        document.getElementById("new-prod-img").value = "";
+        loadAdminData();
+      } else {
+        alert("❌ Ошибка: " + data.error);
+      }
+    }
+
+    // Смена роли
+    async function updateUserRole(id, role) {
+      const res = await fetch(`/api/admin/users/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ role })
+      });
+      const data = await res.json();
+      if (data.success) alert("✅ Роль обновлена!");
+      else {
+        alert("❌ " + data.error);
+        loadAdminData();
+      }
+    }
+
+    // Удаление пользователя
+    async function deleteUser(id) {
+      if (!confirm("Вы уверены, что хотите удалить этого пользователя?")) return;
+      const res = await fetch(`/api/admin/users/${id}`, {
+        method: "DELETE",
+        credentials: "include"
+      });
+      const data = await res.json();
+      if (data.success) {
+        alert("✅ Пользователь удален!");
+        loadAdminData();
+      } else {
+        alert("❌ " + data.error);
+      }
+    }
+
+        // Редактирование товара
+    async function editProduct(id, currentName, currentPrice, currentOldPrice, currentImage, currentCategory) {
+      const newName = prompt("Введите новое название:", currentName);
+      if (newName === null) return;
+      
+      const newPrice = prompt("Введите новую цену:", currentPrice);
+      if (newPrice === null) return;
+      
+      const newOldPrice = prompt("Введите старую цену (для скидки, или оставьте пустым):", currentOldPrice);
+      if (newOldPrice === null) return;
+
+      const newImage = prompt("Введите новую ссылку на картинку:", currentImage);
+      if (newImage === null) return;
+
+      const newCategory = prompt("Введите категорию (Футболки, Джинсы, Куртки, Разное):", currentCategory);
+      if (newCategory === null) return;
+
+      const res = await fetch(`/api/admin/products/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ 
+          name: newName, 
+          price: newPrice, 
+          old_price: newOldPrice || null, 
+          image: newImage, 
+          category: newCategory 
+        })
+      });
+      
+      if (res.ok) {
+        alert("✅ Товар обновлён!");
+        loadAdminData();
+      }
+    }
+
+    // Удаление товара
+    async function deleteProduct(id) {
+      if (!confirm("Удалить этот товар?")) return;
+      await fetch(`/api/admin/products/${id}`, { method: "DELETE", credentials: "include" });
+      loadAdminData();
+    }
+
+    // Смена статуса заказа
+    async function updateOrderStatus(id, status) {
+      try {
+        const res = await fetch(`/api/admin/orders/${id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({ status })
+        });
+        if (res.ok) {
+          console.log("Статус заказа обновлён на: " + status);
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Ошибка обновления статуса");
+      }
+    }
+
+    // Смена статуса отзыва
+    async function updateFeedbackStatus(id, status) {
+      await fetch(`/api/admin/feedbacks/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ status })
+      });
+    }
+
+    loadAdminData();
+  </script>
+</body>
+</html>

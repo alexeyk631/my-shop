@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StyleShop — интернет-магазин одежды</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  </head>
+<body>
+
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="header__logo logo">StyleShop</a>
+
+      <button class="header__burger burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="main-nav">
+        <span class="burger__line"></span>
+        <span class="burger__line"></span>
+        <span class="burger__line"></span>
+      </button>
+
+      <nav class="header__nav nav" id="main-nav">
+        <ul class="nav__list">
+          <li class="nav__item"><a href="index.html" class="nav__link nav__link--active">Главная</a></li>
+          <li class="nav__item"><a href="catalog.html" class="nav__link">Каталог</a></li>
+          <li class="nav__item"><a href="cart.html" class="nav__link">Корзина</a></li>
+          
+          <li class="nav__item"><a href="contacts.html" class="nav__link">Контакты</a></li>
+          <li class="nav__item"><a href="register.html" class="nav__link">Регистрация</a></li>
+          <li class="nav__item"><a href="profile.html" class="nav__link">Кабинет</a></li>
+        
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <h1 class="hero__title">
+            Давай откроем<br>
+            <span class="hero__accent">уникальную</span><br>
+            одежду.
+          </h1>
+          <p class="hero__text">Для влиятельных и модных. Обновляй гардероб вместе с нами.</p>
+          <a href="catalog.html" class="button button_theme_dark button_size_l">Купить сейчас</a>
+        </div>
+        <div class="hero__image-wrap">
+  <div class="slider">
+    <!-- Первый слайд -->
+    <div class="item fade">
+      <img src="https://ir.ozone.ru/s3/multimedia-1-b/12549788867.jpg" alt="Модель 1">
+    </div>
+    <!-- Второй слайд -->
+    <div class="item fade">
+      <img src="https://basket-03.wbbasket.ru/vol397/part39739/39739771/images/big/1.webp" alt="Модель 2">
+    </div>
+    <!-- Третий слайд -->
+    <div class="item fade">
+      <img src="https://yandex-images.clstorage.net/10i03PN18/ffe3442Q98h7/UE1BiJWnKNHQQrhvXXOg_q4CPNWmaTmMIcpZBvggYx2r8vJl_bTkzgI4tpaINlB-D7bD5_HdX-7WdRxJNCLZfjEpheykcr2lwbf4720jgSt6My0QBizoKAQPnRYo9fMtvSFFJ7-ig70Vz5QkefYA-3-y12PF_sk_sRMJSkVXeWmwDQE74jaqsqeCCq0f46LqPZDv4UbvyA_HXe0zCRAGy46iZWc9s9OOB2-3hZkmYQq_w-EBtO-7iCMAWEmHBUvLop_CeSJme9Nno1l-zKHh6uzAnVGUbivMxR0fMsiitHje89YH35FTfOZvZOfoBvN4TmLzMdUv-voRULrqxXUrq2EtEjiRJ3ijxFPpLS4gcis-cBwCR62pruUtvIDKIRe4fdEXJ72RA_4l7MTVCjRyqSyTEJD338vI8KF56semydsDvAGrskfbs8bT6F6uIYL5zZEeoSXOiU5GzTyxaXMWu54wdQdd8eHNlt0EZGq3EQstU9KQB53oG4NAu1lXJ0o58S1j2bBX2_CFsRpNrSOzq9wzbPIUvIveJmzNISiztygPskZUjBDhnBXNxGZqpRMIDtJgoCe_a0kDcIsLVsRYGkHtceqABQmBRyJoDq2z4escoF0B182rfWdezTKK8bTp3VEXBozDkH1nfWQlOOWxiV8i88HUvjmZwtM6med2yigQfwK5w1UpoefzeO4soUPILpA-gnf-aU7mv6yR2wJ2qFyAl_W_INDup40E98jWYoht0sEz9v-4mJNQmws2hcq4E44y2ZLXajG0YTr_TwEjKV4y_RP0Xnmv9X1_UYhDtXg_QOUHXAGgziXtVnQ7xbKpfHBCIZS_m7rB40v4VLUp62NN8elRBHghpSB4z8_CohlMYt_iJkwoHWTtHCD5gQapzgAUp1_ycZy0PVaE6SSjKf-AwsAGf_j6IoKJOcV0e-lgjEDqw6eb4KYDai7cceBKzJNN0TVuWi6UjW9g8" alt="Модель 3">
+    </div>
+    <!-- Кнопки-стрелочки -->
+    <a class="prev" onclick="nextSlide(-1)">&#10094;</a>
+    <a class="next" onclick="nextSlide(1)">&#10095;</a>
+  </div>
+</div>
+      </div>
+    </section>
+
+    <!-- ЛОГОТИПЫ БРЕНДОВ -->
+    <section class="brands">
+      <div class="container">
+        <ul class="brands__list">
+          <li class="brands__item">H&amp;M</li>
+          <li class="brands__item">OBEY</li>
+          <li class="brands__item">Shopify</li>
+          <li class="brands__item">LACOSTE</li>
+          <li class="brands__item">LEVI'S</li>
+          <li class="brands__item">amazon</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- НОВИНКИ -->
+    <section class="new-arrivals">
+      <div class="container">
+        <h2 class="new-arrivals__title">Новинки</h2>
+        <div class="new-arrivals__grid">
+          <a href="catalog.html" class="category-card">
+            <img src="https://basket-03.wbbasket.ru/vol397/part39739/39739771/images/big/1.webp" alt="Худи и свитшоты" class="category-card__image">
+            <div class="category-card__info">
+              <h3 class="category-card__title">Худи и свитшоты</h3>
+              <span class="category-card__link">Смотреть →</span>
+            </div>
+          </a>
+          <a href="catalog.html" class="category-card">
+            <img src="https://yandex-images.clstorage.net/10i03PN18/ffe3442Q98h7/UE1BiJWnKNHQQrhvXXOg_q4CPNWmaTmMIcpZBvggYx2r8vJl_bTkzgI4tpaINlB-D7bD5_HdX-7WdRxJNCLZfjEpheykcr2lwbf4720jgSt6My0QBizoKAQPnRYo9fMtvSFFJ7-ig70Vz5QkefYA-3-y12PF_sk_sRMJSkVXeWmwDQE74jaqsqeCCq0f46LqPZDv4UbvyA_HXe0zCRAGy46iZWc9s9OOB2-3hZkmYQq_w-EBtO-7iCMAWEmHBUvLop_CeSJme9Nno1l-zKHh6uzAnVGUbivMxR0fMsiitHje89YH35FTfOZvZOfoBvN4TmLzMdUv-voRULrqxXUrq2EtEjiRJ3ijxFPpLS4gcis-cBwCR62pruUtvIDKIRe4fdEXJ72RA_4l7MTVCjRyqSyTEJD338vI8KF56semydsDvAGrskfbs8bT6F6uIYL5zZEeoSXOiU5GzTyxaXMWu54wdQdd8eHNlt0EZGq3EQstU9KQB53oG4NAu1lXJ0o58S1j2bBX2_CFsRpNrSOzq9wzbPIUvIveJmzNISiztygPskZUjBDhnBXNxGZqpRMIDtJgoCe_a0kDcIsLVsRYGkHtceqABQmBRyJoDq2z4escoF0B182rfWdezTKK8bTp3VEXBozDkH1nfWQlOOWxiV8i88HUvjmZwtM6med2yigQfwK5w1UpoefzeO4soUPILpA-gnf-aU7mv6yR2wJ2qFyAl_W_INDup40E98jWYoht0sEz9v-4mJNQmws2hcq4E44y2ZLXajG0YTr_TwEjKV4y_RP0Xnmv9X1_UYhDtXg_QOUHXAGgziXtVnQ7xbKpfHBCIZS_m7rB40v4VLUp62NN8elRBHghpSB4z8_CohlMYt_iJkwoHWTtHCD5gQapzgAUp1_ycZy0PVaE6SSjKf-AwsAGf_j6IoKJOcV0e-lgjEDqw6eb4KYDai7cceBKzJNN0TVuWi6UjW9g8" alt="Костюмы и пиджаки" class="category-card__image">
+            <div class="category-card__info">
+              <h3 class="category-card__title">Костюмы и пиджаки</h3>
+              <span class="category-card__link">Смотреть →</span>
+            </div>
+          </a>
+          <a href="catalog.html" class="category-card">
+            <img src="https://ir.ozone.ru/s3/multimedia-1-4/12007746256.jpg" alt="Футболки" class="category-card__image">
+            <div class="category-card__info">
+              <h3 class="category-card__title">Футболки</h3>
+              <span class="category-card__link">Смотреть →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAYDAY SALE -->
+    <section class="sale">
+      <div class="container sale__inner">
+        <div class="sale__content">
+          <p class="sale__label">Распродажа</p>
+          <h2 class="sale__title">PAYDAY SALE</h2>
+          <p class="sale__text">Скидки до 50% на всё. Только до конца недели.</p>
+          <a href="catalog.html" class="button button_theme_dark">Смотреть</a>
+        </div>
+        <img src="https://yandex-images.clstorage.net/10i03PN18/ffe3442Q98h7/UE1BiJWnKNHQQrhvXXOg_q4CPNWmaTmMIcrJZsgAQ72LsoJVvdQ0O2I9s_PtI2A7b4MWl-S9f7vW0_kdsUJcnhRoBc1x1yiAlPIcrv2yoapv1g2Bh_l5-bEKf-BqAjQbfCGVp98TkN4nvabnHIcxSMwXUWHkPhubE4L42TWVmmoTLxOIg5VaQLczWw0_Q-FpT_HO0_fcWBxE7ExjSkK2CiwShwf8snAORkxmlirlQFm-oMNytT3ZySEg6kv211o6wk7TqdBGiQL0M4pdTfMz6KwyzJMF3Zmu9l8cMvkiVCis4GYHL9ABLtQ-lzc41SGZ_9LxIleem7lBQCn5Jpbpe8E-cFlgFWuDZ_JY7cyg4CsuUOyjpm-bLVWfvxA4AjYo_GKlhI_i4xxV7_XG23QDac7gENOUnplqozBLaDUFyhtiLnLZYWbrgpcgqwzOA4JIDrBPQyZeOH9UnFzxWiLWSB5RFrVPU4OfNk30Bhl08yvtM2MyVi0J6yDSuflXd8gLYm0xu5N16ICmcrquvFCzOgwgL-LXznm_9Q_Nc2lxB6keAJWlj1GDjTRO14erRNMJbmHjAmZ_CAgy8Qk5RUT4WbAc8yjhNugQ9DJ6PY2jcEssg27Q193b_fbOH5A4Iwd6b-HnFS8S0c2Wz4Z3OCUgCDyxIqHX7bm6oMNYqzYXuwmQPFP58dZpAlYRSA3uINB47rDvMbZ-ig40j55BuNA0mS9yJ-VPwCH-Rc60hwrXAkm9sHMidn9oSaBTW1oGd-qL06wAa7PHCqI28DivLbFT2P5R_PNlvtlP91_9gcoi17hfUqWFHUPS7ZXvpSWJxWAJnpIhkaaMCnlDACuZxUcpWMG8ESrx94pht8Aq_w9Agcqv421jBs-ojUSODME7gtRLjgA0VR2zAAyEbybVCSTyyf3SwvBkTZu4EQIoWHREu_sifRIJ4xaZ0vWTqg6dc5Lo3dCdA3WPqj9W74zSg" alt="Модель в джинсовой куртке" class="sale__image">
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+      <div class="container cta__inner">
+        <h2 class="cta__title">Присоединяйся к нашему сообществу</h2>
+        <p class="cta__text">Подпишись и получай скидки первым</p>
+        <a href="contacts.html" class="button button_theme_dark">Подписаться</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__copy">© 2026 StyleShop. Все права защищены.</p>
+      <div style="display: flex; gap: 10px;">
+  <a href="privacy.txt" target="_blank" class="footer__link">Политика конфиденциальности</a>
+  <a href="privacy.txt" download="Политика_конфиденциальности.txt" class="footer__link" style="color: #ffd93d;">(Скачать)</a>
+</div>
+      <ul class="footer__socials">
+        <li><a href="#" class="footer__link">VK</a></li>
+        <li><a href="#" class="footer__link">Telegram</a></li>
+        <li><a href="#" class="footer__link">Instagram</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

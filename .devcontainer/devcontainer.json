@@ -1,0 +1,9 @@
+{
+  "name": "Node.js Dev Environment",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:0-20",
+  "extensions": [
+    "dbaeumer.vscode-eslint",
+    "mongodb.mongodb-vscode"
+  ],
+  "postCreateCommand": "bash .devcontainer/install-mongo.sh"
+}

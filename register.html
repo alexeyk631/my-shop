@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Регистрация — StyleShop</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="header__logo logo">StyleShop</a>
+      <nav class="header__nav nav">
+        <ul class="nav__list" style="display:flex; position:static;">
+          <li class="nav__item"><a href="index.html" class="nav__link">Главная</a></li>
+          <li class="nav__item"><a href="catalog.html" class="nav__link">Каталог</a></li>
+          <li class="nav__item"><a href="cart.html" class="nav__link">Корзина</a></li>
+          <li class="nav__item"><a href="contacts.html" class="nav__link">Контакты</a></li>
+          <li class="nav__item"><a href="register.html" class="nav__link nav__link--active">Регистрация</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="forms" style="padding: 4rem 0;">
+      <div class="container" style="max-width: 500px;">
+        <form class="form form_registration" novalidate>
+          <h2 class="form__title">Регистрация</h2>
+
+          <div class="form__field">
+            <label for="reg-username" class="form__label">Имя пользователя <span class="form__required">*</span></label>
+            <input type="text" id="reg-username" name="username" class="form__input" required minlength="3">
+          </div>
+          <div class="form__field">
+            <label for="reg-email" class="form__label">Email <span class="form__required">*</span></label>
+            <input type="email" id="reg-email" name="email" class="form__input" required>
+          </div>
+          <div class="form__field">
+            <label for="reg-password" class="form__label">Пароль <span class="form__required">*</span></label>
+            <input type="password" id="reg-password" name="password" class="form__input" required minlength="8">
+          </div>
+          <div class="form__field">
+            <label for="reg-password-confirm" class="form__label">Подтверждение пароля <span class="form__required">*</span></label>
+            <input type="password" id="reg-password-confirm" name="password_confirm" class="form__input" required>
+          </div>
+                    <div class="form__field form__field_checkbox">
+            <input type="checkbox" id="reg-terms" name="terms" class="form__checkbox" required>
+            <label for="reg-terms" class="form__label form__label_checkbox">
+              Я согласен на обработку персональных данных в соответствии с 
+              <a href="privacy.txt" target="_blank" style="color: var(--color-primary); text-decoration: underline;">Политикой конфиденциальности</a> 
+              <span class="form__required">*</span>
+            </label>
+          </div>
+          <button type="submit" class="button button_theme_primary button_size_l form__submit">Зарегистрироваться</button>
+          
+          <p style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--color-text-muted);">
+            Уже есть аккаунт? <a href="login.html" style="color: var(--color-primary); text-decoration: underline;">Войти</a>
+          </p>
+        </form>
+      </div>
+    </section>
+  </main>
+  <script src="js/script.js"></script>
+</body>
+</html>

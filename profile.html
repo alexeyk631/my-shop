@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Личный кабинет — StyleShop</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="header__logo logo">StyleShop</a>
+      <nav class="header__nav nav" id="main-nav">
+        <ul class="nav__list" style="display:flex; position:static;">
+          <li class="nav__item"><a href="index.html" class="nav__link">Главная</a></li>
+          <li class="nav__item"><a href="catalog.html" class="nav__link">Каталог</a></li>
+          <li class="nav__item"><a href="cart.html" class="nav__link">Корзина</a></li>
+          <li class="nav__item"><a href="contacts.html" class="nav__link">Контакты</a></li>
+          <li class="nav__item"><a href="register.html" class="nav__link">Регистрация</a></li>
+          <li class="nav__item"><a href="profile.html" class="nav__link">Кабинет</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="contacts">
+      <div class="container">
+        <h1 class="section-title">Личный кабинет</h1>
+        
+        <div class="forms__grid" style="grid-template-columns: 1fr;">
+          
+          <!-- Форма профиля -->
+          <form class="form" id="profile-form">
+            <h2 class="form__title">Мой профиль</h2>
+            <div class="form__field">
+              <label class="form__label">Имя</label>
+              <input type="text" id="profile-name" class="form__input" required>
+            </div>
+            <div class="form__field">
+              <label class="form__label">Email</label>
+              <input type="email" id="profile-email" class="form__input" required>
+            </div>
+            <button type="submit" class="button button_theme_primary">Сохранить изменения</button>
+          </form>
+
+          <!-- Форма смены пароля -->
+          <form class="form" id="password-form" style="margin-top: 2rem;">
+            <h2 class="form__title">Смена пароля</h2>
+            <div class="form__field">
+              <label class="form__label">Старый пароль</label>
+              <input type="password" id="old-password" class="form__input" required>
+            </div>
+            <div class="form__field">
+              <label class="form__label">Новый пароль (мин. 8 символов)</label>
+              <input type="password" id="new-password" class="form__input" required minlength="8">
+            </div>
+            <button type="submit" class="button button_theme_primary">Изменить пароль</button>
+          </form>
+
+          <!-- Мои отзывы -->
+          <div class="form" style="margin-top: 2rem;">
+            <h2 class="form__title">Мои отзывы</h2>
+            <div id="my-feedbacks">
+              <p style="color: #6b7280;">Загрузка...</p>
+            </div>
+            <button id="logout-btn" class="button button_theme_secondary" style="margin-top: 1rem;">Выйти из аккаунта</button>
+          </div>
+                    <!-- Мои заказы -->
+          <div class="form" style="margin-top: 2rem;">
+            <h2 class="form__title">Мои заказы</h2>
+            <div id="my-orders">
+              <p style="color: #6b7280;">Загрузка...</p>
+            </div>
+          </div>
+                    <!-- История активности -->
+          <div class="form" style="margin-top: 2rem;">
+            <h2 class="form__title">История активности</h2>
+            <div id="my-actions-list">
+              <p style="color: #6b7280;">Загрузка...</p>
+            </div>
+          </div>
+                    <!-- Данные сессии -->
+          <div class="form" style="margin-top: 2rem;">
+            <h2 class="form__title">Данные сессии (краткосрочные)</h2>
+            <p><strong>История поиска:</strong> <span id="session-search">пусто</span></p>
+            <p><strong>Недавно просмотренные (ID):</strong> <span id="session-viewed">пусто</span></p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__copy">© 2026 StyleShop. Все права защищены.</p>
+    </div>
+  </footer>
+
+  <script src="js/profile.js"></script>
+</body>
+</html>

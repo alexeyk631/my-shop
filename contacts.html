@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Контакты — StyleShop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="header__logo logo">StyleShop</a>
+
+      <button class="header__burger burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="main-nav">
+        <span class="burger__line"></span>
+        <span class="burger__line"></span>
+        <span class="burger__line"></span>
+      </button>
+
+      <nav class="header__nav nav" id="main-nav">
+        <ul class="nav__list">
+          <li class="nav__item"><a href="index.html" class="nav__link">Главная</a></li>
+          <li class="nav__item"><a href="catalog.html" class="nav__link">Каталог</a></li>
+          <li class="nav__item"><a href="cart.html" class="nav__link">Корзина</a></li>
+          <li class="nav__item"><a href="contacts.html" class="nav__link nav__link--active">Контакты</a></li>
+          <li class="nav__item"><a href="register.html" class="nav__link">Регистрация</a></li>
+          <li class="nav__item"><a href="profile.html" class="nav__link">Кабинет</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- АДРЕС + КАРТА -->
+    <section class="contacts">
+      <div class="container">
+        <h1 class="section-title">Контакты</h1>
+
+        <div class="contacts__grid">
+          <div class="contacts__info">
+            <h2 class="contacts__subtitle">Наш адрес</h2>
+            <p class="contacts__text">г. Москва, ул. Тверская, д. 12, офис 305</p>
+            <p class="contacts__text">Телефон: <a href="tel:+74951234567" class="contacts__link">+7 (495) 123-45-67</a></p>
+            <p class="contacts__text">Email: <a href="mailto:info@styleshop.ru" class="contacts__link">info@styleshop.ru</a></p>
+            <p class="contacts__text">Работаем: Пн–Пт 10:00–20:00, Сб–Вс 11:00–18:00</p>
+          </div>
+
+          <div class="contacts__map map">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2245.9!2d37.605!3d55.765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTXCsDQ1JzU0LjAiTiAzN8KwMzYnMTguMCJF!5e0!3m2!1sru!2sru!4v1700000000000"
+              width="100%" height="400" style="border:0;"
+              allowfullscreen loading="lazy"
+              title="Карта: наш офис на Тверской">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ОБРАТНАЯ СВЯЗЬ -->
+    <section class="forms">
+      <div class="container forms__grid">
+        
+        <div></div> <!-- Пустой блок для сетки, чтобы форма была по центру -->
+        
+        <form class="form form_feedback" novalidate>
+          <h2 class="form__title">Обратная связь</h2>
+        
+          <div class="form__field">
+            <label for="fb-subject" class="form__label">Тема <span class="form__required">*</span></label>
+            <select id="fb-subject" name="subject" class="form__select" required>
+              <option value="">Выберите тему</option>
+              <option value="order">Вопрос по заказу</option>
+              <option value="delivery">Доставка</option>
+              <option value="return">Возврат</option>
+              <option value="other">Другое</option>
+            </select>
+          </div>
+
+          <div class="form__field">
+            <label for="fb-message" class="form__label">Сообщение <span class="form__required">*</span></label>
+            <textarea id="fb-message" name="message" class="form__textarea" rows="5" required></textarea>
+          </div>
+
+          <div class="form__field">
+            <label for="fb-rating" class="form__label">Оценка (1–5)</label>
+            <select id="fb-rating" name="rating" class="form__select">
+              <option value="5">5 — Отлично</option>
+              <option value="4">4 — Хорошо</option>
+              <option value="3">3 — Нормально</option>
+              <option value="2">2 — Плохо</option>
+              <option value="1">1 — Ужасно</option>
+            </select>
+          </div>
+          
+          <!-- ЕДИНСТВЕННЫЙ ЧЕКБОКС -->
+          <div class="form__field form__field_checkbox">
+            <input type="checkbox" id="fb-privacy" name="privacy" class="form__checkbox" required>
+            <label for="fb-privacy" class="form__label form__label_checkbox">
+              Я согласен на обработку персональных данных в соответствии с 
+              <a href="privacy.txt" target="_blank" style="color: var(--color-primary); text-decoration: underline;">Политикой конфиденциальности</a> 
+              <span class="form__required">*</span>
+            </label>
+          </div>
+
+          <button type="submit" class="button button_theme_primary button_size_l form__submit">Отправить</button>
+        </form>
+
+        <div></div> <!-- Пустой блок для сетки -->
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__copy">© 2026 StyleShop. Все права защищены.</p>
+      <a href="privacy.txt" target="_blank" download class="footer__link">Политика конфиденциальности</a>
+      <ul class="footer__socials">
+        <li><a href="#" class="footer__link">VK</a></li>
+        <li><a href="#" class="footer__link">Telegram</a></li>
+        <li><a href="#" class="footer__link">Instagram</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

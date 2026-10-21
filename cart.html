@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Корзина — StyleShop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header__inner">
+      <a href="index.html" class="header__logo logo">StyleShop</a>
+
+      <button class="header__burger burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="main-nav">
+        <span class="burger__line"></span>
+        <span class="burger__line"></span>
+        <span class="burger__line"></span>
+      </button>
+
+      <nav class="header__nav nav" id="main-nav">
+        <ul class="nav__list">
+          <li class="nav__item"><a href="index.html" class="nav__link">Главная</a></li>
+          <li class="nav__item"><a href="catalog.html" class="nav__link">Каталог</a></li>
+          <li class="nav__item"><a href="cart.html" class="nav__link nav__link--active">Корзина</a></li>
+          
+          
+          <li class="nav__item"><a href="contacts.html" class="nav__link">Контакты</a></li>
+          <li class="nav__item"><a href="register.html" class="nav__link">Регистрация</a></li>
+          <li class="nav__item"><a href="profile.html" class="nav__link">Кабинет</a></li>
+             
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="cart">
+      <div class="container">
+        <h1 class="section-title">Корзина</h1>
+
+        <div class="cart__table-wrap">
+          <table class="cart__table">
+            <thead>
+              <tr>
+                  <th scope="col">Товар</th>
+                  <th scope="col">Размер</th>
+                  <th scope="col">Цена</th>
+                  <th scope="col">Кол-во</th>
+                  <th scope="col">Сумма</th>
+                  <th scope="col"></th> <!-- Пустая для кнопки удаления -->
+                </tr>
+            </thead>
+            <tbody>
+          
+            </tbody>
+            <tfoot>
+            <tr>
+              <td colspan="4" class="cart__total-label">Итого</td>
+              <td class="cart__total-value" id="total-price">0 ₽</td>
+            </tr>
+          </tfoot>
+          </table>
+        </div>
+
+        <div class="cart__actions">
+          <a href="catalog.html" class="button button_theme_secondary">Продолжить покупки</a>
+          <button type="button" class="button button_theme_primary" onclick="checkout()">Оформить заказ</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__copy">© 2026 StyleShop. Все права защищены.</p>
+      <a href="privacy.txt" target="_blank" download class="footer__link">Политика конфиденциальности</a>
+      <ul class="footer__socials">
+        <li><a href="#" class="footer__link">VK</a></li>
+        <li><a href="#" class="footer__link">Telegram</a></li>
+        <li><a href="#" class="footer__link">Instagram</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script src="js/cart-page.js"></script>
+</body>
+</html>
