@@ -5,7 +5,8 @@
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
-    "dev": "nodemon server/server.js"
+    "test": "vitest run",
+    "coverage": "vitest run --coverage"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
@@ -15,5 +16,9 @@
     "express-session": "^1.17.3",
     "mongodb-memory-server": "^11.3.0",
     "mongoose": "^9.11.0"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^5.0.5",
+    "vitest": "^5.0.5"
   }
 }
