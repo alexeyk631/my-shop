@@ -6,9 +6,12 @@ const router = express.Router();
 
 router.post("/register", async (req, res) => {
   try {
-    const { name, email, password, password_confirm, terms } = req.body;
+    const { name, email, phone, password, password_confirm, terms } = req.body;
     if (!terms) {
     return res.status(400).json({ error: "Необходимо согласие на обработку данных" });
+    }
+    if (!phone) {
+      return res.status(400).json({ error: "Номер телефона обязателен" });
     }
     if (!name || !email || !password)
       return res.status(400).json({ error: "Все поля обязательны" });
@@ -21,7 +24,7 @@ router.post("/register", async (req, res) => {
     if (existing) return res.status(400).json({ error: "Email уже занят" });
 
     const password_hash = await bcrypt.hash(password, 10);
-    const user = await User.create({ name, email, password_hash });
+    const user = await User.create({ name, email, phone, password_hash });
 
     req.session.userId = user._id;
     await logAction(user._id, "register");

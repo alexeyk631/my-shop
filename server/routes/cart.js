@@ -59,10 +59,9 @@ router.put("/update", async (req, res) => {
     const cart = await Cart.findOne({ user_id: req.session.userId });
     if (!cart) return res.status(404).json({ error: "Корзина не найдена" });
 
-   const itemIndex = cart.items.findIndex(item => item.product_id.toString() === product_id);
+       const itemIndex = cart.items.findIndex(item => item.product_id.toString() === product_id);
     if (itemIndex > -1) {
       if (action === "increase") {
-        // ВОТ ЭТА ПРОВЕРКА:
         if (cart.items[itemIndex].quantity >= 99) {
           return res.status(400).json({ error: "Максимум 99 штук" });
         }
@@ -72,10 +71,20 @@ router.put("/update", async (req, res) => {
         if (cart.items[itemIndex].quantity <= 0) {
           cart.items.splice(itemIndex, 1);
         }
+      } else if (action === "set") {
+        // НОВЫЙ БЛОК: обработка ввода с клавиатуры
+        const qty = Number(req.body.quantity);
+        if (qty > 99) return res.status(400).json({ error: "Максимум 99 штук" });
+        
+        if (qty <= 0) {
+          cart.items.splice(itemIndex, 1); // Если ввели 0 или меньше, удаляем
+        } else {
+          cart.items[itemIndex].quantity = qty;
+        }
       }
       await cart.save();
       res.json({ success: true, cart });
-    } else {
+        } else {
       res.status(404).json({ error: "Товар не найден в корзине" });
     }
   } catch (err) {

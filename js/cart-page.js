@@ -45,10 +45,14 @@ async function loadCart() {
           </td>
           <td data-label="Размер">-</td>
           <td data-label="Цена">${priceHTML}</td>
-          <td data-label="Кол-во">
-            <div style="display: flex; align-items: center; gap: 10px;">
+                    <td data-label="Кол-во">
+            <div style="display: flex; align-items: center; gap: 5px;">
               <button class="btn-qty" onclick="updateQty('${item.product_id}', 'decrease')">-</button>
-              <span>${item.quantity}</span>
+              
+              <!-- Поле для ручного ввода -->
+              <input type="number" class="qty-input" value="${item.quantity}" min="1" max="99" 
+                     onchange="setQty('${item.product_id}', this.value)" style="width: 45px; text-align: center; padding: 4px; border: 1px solid #d1d5db; border-radius: 4px;">
+              
               <button class="btn-qty" onclick="updateQty('${item.product_id}', 'increase')">+</button>
             </div>
           </td>
@@ -122,5 +126,29 @@ window.checkout = async function() {
     alert("Ошибка соединения");
   }
 };
-
+// Установка точного количества из поля ввода
+async function setQty(productId, newQuantity) {
+  try {
+    const res = await fetch("/api/cart/update", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ 
+        product_id: productId, 
+        action: "set", 
+        quantity: Number(newQuantity) // передаем само число
+      })
+    });
+    
+    if (res.ok) {
+      loadCart(); // Перерисовываем корзину, чтобы обновить итоговую сумму
+    } else {
+      const data = await res.json();
+      alert("Ошибка: " + data.error);
+      loadCart(); // Если ошибка (например, больше 99), возвращаем как было
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}
 loadCart();

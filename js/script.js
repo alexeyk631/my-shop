@@ -137,22 +137,38 @@
 
     const name = form.querySelector('input[name="username"]').value;
     const email = form.querySelector('input[name="email"]').value;
+    const phone = form.querySelector('input[name="phone"]').value;
     const password = form.querySelector('input[name="password"]').value;
     const password_confirm = form.querySelector('input[name="password_confirm"]').value;
-    
+    const phoneRegex = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
+if (!phoneRegex.test(phone)) {
+  alert("❌ Введите корректный российский номер телефона в формате +7 (999) 123-45-67");
+  return;
+}
     // Проверка галочки
     const terms = form.querySelector('input[name="terms"]');
     if (!terms || !terms.checked) {
       alert("❌ Пожалуйста, согласитесь на обработку персональных данных.");
       return; 
     }
+    // Маска для телефона
+      const phoneInput = document.querySelector('input[name="phone"]');
+      if (phoneInput) {
+        phoneInput.addEventListener("input", function (e) {
+          let x = e.target.value.replace(/\D/g, '').match(/(\d{0,1})(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
+          // Если первая цифра не 7 и не 8, принудительно ставим 7
+          if (x[1] !== '7' && x[1] !== '8' && x[1] !== '') x[1] = '7'; 
+          
+          e.target.value = !x[2] ? '+7 ' : '+7 (' + x[2] + (x[3] ? ') ' + x[3] : '') + (x[4] ? '-' + x[4] : '') + (x[5] ? '-' + x[5] : '');
+        });
+      }
 
     try {
       const res = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify({ name, email, password, password_confirm, terms: terms.checked }),
+        body: JSON.stringify({ name, email, phone, password, password_confirm, terms: terms.checked }),
       });
       const data = await res.json();
 
