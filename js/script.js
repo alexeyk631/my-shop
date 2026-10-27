@@ -406,3 +406,33 @@ window.addToCartFromSearch = async function(productId) {
     console.log("Меню: пользователь не авторизован");
   }
 })();
+// ==========================================
+// МАСКА ДЛЯ ТЕЛЕФОНА
+// ==========================================
+(function initPhoneMask() {
+  const phoneInput = document.querySelector('input[name="phone"]');
+  if (!phoneInput) return;
+
+  phoneInput.addEventListener("input", function (e) {
+    let input = e.target.value.replace(/\D/g, ''); // Оставляем только цифры
+
+    // Если поле пустое, очищаем
+    if (!input) {
+      e.target.value = "";
+      return;
+    }
+
+    // Если первая цифра 7 или 8, заменяем на 7 (для удобства)
+    if (input[0] === '8') input = '7' + input.slice(1);
+    if (input[0] !== '7') input = '7' + input;
+
+    // Формируем красивую строку
+    let formatted = "+7 ";
+    if (input.length > 1) formatted += "(" + input.substring(1, 4);
+    if (input.length >= 5) formatted += ") " + input.substring(4, 7);
+    if (input.length >= 8) formatted += "-" + input.substring(7, 9);
+    if (input.length >= 10) formatted += "-" + input.substring(9, 11);
+
+    e.target.value = formatted;
+  });
+})();
